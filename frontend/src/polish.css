@@ -1,0 +1,167 @@
+body {
+  font-size: 15px;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 14px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(126, 145, 54, .45);
+  outline-offset: 2px;
+}
+
+.task-card h3 {
+  font-size: 19px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.task-actions {
+  position: relative;
+}
+
+.more-button {
+  min-width: 38px;
+  min-height: 38px;
+  border-radius: 8px;
+}
+
+.more-button:hover,
+.more-button[aria-expanded="true"] {
+  background: #f0efe8;
+  color: #34392b;
+}
+
+.action-menu {
+  position: absolute;
+  z-index: 4;
+  top: 42px;
+  right: 0;
+  min-width: 130px;
+  padding: 5px;
+  background: #fff;
+  border: 1px solid #e1e0d7;
+  border-radius: 9px;
+  box-shadow: 0 12px 28px rgba(37, 37, 31, .12);
+}
+
+.action-menu button {
+  display: block;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #45463d;
+  text-align: left;
+  cursor: pointer;
+}
+
+.action-menu button:hover,
+.action-menu button:focus-visible {
+  background: #f3f4e9;
+}
+
+.due-indicator {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.due-overdue {
+  color: #a74b43;
+}
+
+.due-today {
+  color: #9a7627;
+}
+
+.due-upcoming {
+  color: #66804d;
+}
+
+.search-field {
+  position: relative;
+  margin: 0 !important;
+}
+
+.search-field span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.search-field input {
+  width: 190px;
+  margin: 0;
+  padding: 9px 10px;
+  border: 1px solid #deded5;
+  border-radius: 8px;
+  background: #fafaf7;
+  color: #333;
+}
+
+.empty-state h3 {
+  font-size: 20px;
+}
+
+.empty-action {
+  margin-top: 18px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 8px;
+  background: #34392b;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  .search-field {
+    flex: 1 1 100%;
+  }
+
+  .search-field input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-shell {
+    overflow-x: hidden;
+  }
+
+  .task-meta {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .task-footer {
+    flex-wrap: wrap;
+  }
+
+  .due-indicator {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+  }
+}
