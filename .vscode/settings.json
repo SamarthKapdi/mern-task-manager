@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^New-Item -ItemType Directory -Force -Path 'D:\\\\AllProjects\\\\codewise assignment\\\\backend\\\\config','D:\\\\AllProjects\\\\codewise assignment\\\\backend\\\\controllers','D:\\\\AllProjects\\\\codewise assignment\\\\backend\\\\middleware','D:\\\\AllProjects\\\\codewise assignment\\\\backend\\\\models','D:\\\\AllProjects\\\\codewise assignment\\\\backend\\\\routes','D:\\\\AllProjects\\\\codewise assignment\\\\frontend\\\\src\\\\components','D:\\\\AllProjects\\\\codewise assignment\\\\frontend\\\\src\\\\pages','D:\\\\AllProjects\\\\codewise assignment\\\\frontend\\\\src\\\\services','D:\\\\AllProjects\\\\codewise assignment\\\\frontend\\\\src\\\\hooks','D:\\\\AllProjects\\\\codewise assignment\\\\frontend\\\\src\\\\utils' \\| Out-Null$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
