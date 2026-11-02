@@ -1,13 +1,13 @@
 # Assessment Notes
 
-## 1. Supporting multiple users and private task lists
+## 1. Supporting Multiple Users and Private Task Lists
 
-I would add a `User` model and a `userId` reference on `Task`, then authenticate requests with JWTs. Every query and mutation would be scoped to the authenticated user, with authorization checks preventing access to another user's tasks.
+I would introduce a `User` model and add a `userId` reference to each Task document. I would implement JWT-based authentication and scope every task query and mutation to the authenticated user, with authorization checks preventing users from accessing another user's tasks.
 
-## 2. Scaling to thousands of tasks
+## 2. Scaling to Thousands of Tasks
 
-The first concern would be fetching and rendering the entire collection on every request. I would add server-side pagination, indexes for status/owner/due-date queries, and return only the records and fields needed by the current page.
+My first concern would be fetching and rendering the entire task collection on every request. I would introduce server-side pagination, add appropriate MongoDB indexes for frequently queried fields such as status, owner, and due date, and return only the records and fields required for the current page.
 
-## 3. AI coding tools — draft for review and personalization
+## 3. AI Coding Tools
 
-**DRAFT — please review and personalize before submission.** During development, testing exposed that the initial priority sort was alphabetical rather than low → medium → high. I changed the implementation to use explicit semantic priority ordering and added automated coverage for both sort directions instead of accepting the initial behavior.
+I used GitHub Copilot as an AI-assisted coding tool. During testing, I identified that the initial priority sorting was alphabetical rather than following the required Low → Medium → High order, so I changed it to use explicit priority mapping and added automated tests to verify both ascending and descending sorting.
