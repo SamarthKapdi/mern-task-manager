@@ -24,19 +24,23 @@ export async function getTasks(req, res, next) {
     const query = status ? { status } : {};
     const direction = sortOrder === 'desc' ? -1 : 1;
     let tasks;
-    if (sortBy === 'priority') {
+    if (sortBy === 'priority' || sortBy === 'dueDate') {
       tasks = await Task.aggregate([
         { $match: query },
-        { $addFields: { priorityOrder: { $switch: {
-          branches: [
-            { case: { $eq: ['$priority', 'low'] }, then: 1 },
-            { case: { $eq: ['$priority', 'medium'] }, then: 2 },
-            { case: { $eq: ['$priority', 'high'] }, then: 3 }
-          ],
-          default: 2
-        } } } },
-        { $sort: { priorityOrder: direction, createdAt: -1 } },
-        { $project: { priorityOrder: 0 } }
+        { $addFields: sortBy === 'priority'
+          ? { priorityOrder: { $switch: {
+            branches: [
+              { case: { $eq: ['$priority', 'low'] }, then: 1 },
+              { case: { $eq: ['$priority', 'medium'] }, then: 2 },
+              { case: { $eq: ['$priority', 'high'] }, then: 3 }
+            ],
+            default: 2
+          } } }
+          : { dueDateMissing: { $cond: [{ $eq: [{ $type: '$dueDate' }, 'date'] }, 0, 1] } } },
+        { $sort: sortBy === 'priority'
+          ? { priorityOrder: direction, createdAt: -1 }
+          : { dueDateMissing: 1, dueDate: direction, createdAt: -1 } },
+        { $project: { priorityOrder: 0, dueDateMissing: 0 } }
       ]);
     } else {
       const sort = sortBy ? { [sortBy]: direction } : { createdAt: -1 };
