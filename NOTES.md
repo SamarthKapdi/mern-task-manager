@@ -2,14 +2,12 @@
 
 ## 1. Supporting multiple users and private task lists
 
-I would add a `User` model and an `owner` ObjectId field on `Task` referencing that user. Authentication (for example, short-lived access tokens with refresh tokens) would establish the authenticated user on every request. Controllers would always scope queries and writes by `owner`, and an index on `{ owner: 1, status: 1, dueDate: 1 }` would support the most common private-list queries.
+I would add a `User` model and a `userId` reference on `Task`, then authenticate requests with JWTs. Every query and mutation would be scoped to the authenticated user, with authorization checks preventing access to another user's tasks.
 
 ## 2. Scaling to thousands of tasks
 
-The first concern would be returning and rendering the entire collection for every request. I would add server-side pagination with `page` and `limit`, return a small metadata object (`total`, `page`, `pages`), add indexes for filter/sort combinations, and use a paginated UI that loads only the visible page.
+The first concern would be fetching and rendering the entire collection on every request. I would add server-side pagination, indexes for status/owner/due-date queries, and return only the records and fields needed by the current page.
 
-## 3. AI coding tools (draft to review and personalize)
+## 3. AI coding tools — draft for review and personalization
 
-**DRAFT — please review and personalize before submission.**
-
-I used an AI coding assistant to accelerate scaffolding and review during this assessment. I treated its output as a starting point, then checked the implementation against the assignment requirements and adjusted validation, error handling, API response consistency, and UI loading/error states where needed. I did not accept generated code without reviewing its behavior.
+**DRAFT — please review and personalize before submission.** During development, testing exposed that the initial priority sort was alphabetical rather than low → medium → high. I changed the implementation to use explicit semantic priority ordering and added automated coverage for both sort directions instead of accepting the initial behavior.
