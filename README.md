@@ -62,6 +62,17 @@ Requirements: Node.js 18+, npm, and a running MongoDB instance (local or Atlas).
 
    Open the Vite URL shown in the terminal. To use another API URL, set `VITE_API_URL` in `frontend/.env` (for example `http://localhost:5000/api`).
 
+## Automated tests
+
+The backend integration suite uses Vitest, Supertest, and MongoDB Memory Server. It does not require a locally installed or running MongoDB server:
+
+```powershell
+cd backend
+npm test
+```
+
+The suite covers CRUD operations, both route aliases, filtering, semantic priority and date sorting, validation, malformed IDs, and missing records.
+
 ## API
 
 All responses use `{ "success": boolean, "data": ... }` or `{ "success": false, "message": "..." }`.
