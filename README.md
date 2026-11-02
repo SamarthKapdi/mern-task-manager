@@ -42,8 +42,14 @@ Requirements: Node.js 18+, npm, and a running MongoDB instance (local or Atlas).
 
    ```env
    MONGO_URI=mongodb://127.0.0.1:27017/task-manager
-   PORT=5000
-   CLIENT_URL=http://localhost:5173
+   PORT=5001
+   CLIENT_URL=http://127.0.0.1:5174
+   ```
+
+   For MongoDB Atlas, replace `MONGO_URI` with the connection string copied from your own Atlas cluster. Credentials are intentionally not included in this repository:
+
+   ```env
+   MONGO_URI=mongodb+srv://<username>:<password>@<cluster-host>/task-manager?retryWrites=true&w=majority
    ```
 
 3. Start the API:
@@ -60,7 +66,7 @@ Requirements: Node.js 18+, npm, and a running MongoDB instance (local or Atlas).
    npm run dev
    ```
 
-   Open the Vite URL shown in the terminal. To use another API URL, set `VITE_API_URL` in `frontend/.env` (for example `http://localhost:5000/api`).
+   Open the Vite URL shown in the terminal. To use another API URL, set `VITE_API_URL` in `frontend/.env` (for example `http://127.0.0.1:5001/api`).
 
 ## Automated tests
 
@@ -94,7 +100,7 @@ Example create payload:
 
 ## Troubleshooting
 
-- **MongoDB connection failure:** confirm MongoDB is running and `MONGO_URI` is correct; the backend exits clearly rather than serving without persistence.
-- **Network/API errors:** ensure the backend is listening on port 5000 and that the frontend `VITE_API_URL` points to `/api`.
+- **MongoDB connection failure:** confirm MongoDB is running and `MONGO_URI` is correct. If Docker Desktop or local MongoDB is unavailable, use your own MongoDB Atlas connection string; the backend exits clearly rather than serving without persistence.
+- **Network/API errors:** ensure the backend is listening on port 5001 and that the frontend `VITE_API_URL` points to `/api`.
 - **CORS errors:** set `CLIENT_URL` to the exact frontend origin.
 - **Port in use:** change `PORT`, then update `VITE_API_URL` accordingly.
