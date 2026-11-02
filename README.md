@@ -1,236 +1,424 @@
 # Personal Task Manager
 
+A clean, responsive, full-stack task management application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Organize tasks, manage priorities, track deadlines, and monitor your productivity through a modern dashboard.
+
 ## Overview
 
-Personal Task Manager is a responsive MERN dashboard for creating, organizing, filtering, sorting, editing, and completing tasks. It solves the problem of keeping a small personal workload visible and actionable while persisting every task in MongoDB through an Express API.
+Personal Task Manager helps users create, organize, update, filter, sort, and track their daily tasks through a simple and intuitive interface.
 
-The application has no mock task dataset: task cards, counts, filters, and sorting are populated from the API.
+The application uses MongoDB for persistent storage, an Express.js REST API for backend operations, and React for an interactive frontend.
+
+All task data is retrieved from the backend and persisted in MongoDB. The application does not rely on hardcoded mock task data.
 
 ## Features
 
-- Create, read, update, and delete tasks.
-- Required, trimmed titles with clear validation.
-- Optional descriptions and due dates.
+### Task Management
+- Create tasks with title, description, priority, status, and due date.
+- Edit existing tasks through a centered modal dialog.
+- Delete tasks with confirmation.
+- Update task status directly from task cards.
+- Automatically synchronize the interface with backend data.
+
+### Dashboard
+- Overview of total tasks.
+- Todo, in-progress, and completed task counts.
+- Completion progress indicator.
+- Clean and responsive dashboard layout.
+
+### Search, Filtering & Sorting
+- Search tasks by title and description.
+- Filter tasks by Todo, In Progress, and Done.
+- Sort tasks by due date.
+- Sort tasks by priority.
+- Support ascending and descending sorting.
+- Combine search, filtering, and sorting.
+
+### Priority & Deadline Tracking
 - Low, medium, and high priority indicators.
-- Todo, in-progress, and done statuses.
-- Dashboard counts for total, todo, in-progress, and completed tasks.
-- Status filtering and due-date/priority sorting in both directions.
-- Delete confirmation, loading state, empty state, and success/error feedback.
-- Responsive layout for desktop and smaller screens.
-- Centralized backend errors and MongoDB validation.
+- Overdue task indicators.
+- Due today indicators.
+- Upcoming deadline indicators.
+- Completed tasks are handled separately from overdue tasks.
 
-## Technology stack
+### User Experience
+- Responsive desktop and mobile layouts.
+- Centered edit modal with backdrop.
+- Keyboard and Escape-key interaction.
+- Accessible task action menus.
+- Loading and empty states.
+- Success and error feedback.
+- Confirmation before deleting tasks.
+- Background scrolling prevention while editing.
 
-- Frontend: React 18, Vite, Axios, React Hooks, CSS3
-- Backend: Node.js, Express, Mongoose, dotenv
-- Database: MongoDB local instance or MongoDB Atlas
-- Testing: Vitest, Supertest, MongoDB Memory Server
+### Backend & Reliability
+- RESTful CRUD API.
+- MongoDB persistence using Mongoose.
+- Request validation.
+- Centralized error-handling middleware.
+- Invalid ObjectId handling.
+- Proper HTTP status codes.
+- Automated backend integration tests.
 
+## Technology Stack
 
-## Project structure
+| Layer | Technologies |
+|---|---|
+| Frontend | React.js, Vite, JavaScript, CSS3 |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas / MongoDB |
+| ODM | Mongoose |
+| API Communication | Axios |
+| State Management | React Hooks |
+| Environment Configuration | dotenv, Vite environment variables |
+| Testing | Vitest, Supertest, MongoDB Memory Server |
+| Version Control | Git and GitHub |
+
+## Project Structure
 
 ```text
-backend/
-  config/db.js
-  controllers/taskController.js
-  middleware/errorHandler.js
-  middleware/validateTask.js
-  models/Task.js
-  routes/taskRoutes.js
-  tests/tasks.integration.test.js
-  app.js
-  server.js
-  .env.example
-  package.json
-frontend/
-  src/
-    components/TaskCard.jsx
-    components/TaskForm.jsx
-    hooks/useTasks.js
-    pages/Dashboard.jsx
-    services/api.js
-    App.jsx
-    index.css
-    main.jsx
-  .env.example
-  package.json
-README.md
-NOTES.md
-.env.example
-.gitignore
+mern-task-manager/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   ├── controllers/
+│   │   └── taskController.js
+│   ├── middleware/
+│   │   ├── errorHandler.js
+│   │   └── validateTask.js
+│   ├── models/
+│   │   └── Task.js
+│   ├── routes/
+│   │   └── taskRoutes.js
+│   ├── tests/
+│   │   └── tasks.integration.test.js
+│   ├── app.js
+│   ├── server.js
+│   ├── .env.example
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── TaskCard.jsx
+│   │   │   └── TaskForm.jsx
+│   │   ├── hooks/
+│   │   │   └── useTasks.js
+│   │   ├── pages/
+│   │   │   └── Dashboard.jsx
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .env.example
+│   └── package.json
+│
+├── README.md
+├── NOTES.md
+├── .env.example
+├── .gitignore
+└── LICENSE
 ```
 
 ## Prerequisites
 
-- Node.js 18 or newer
-- npm
-- MongoDB local installation or a MongoDB Atlas cluster
-- PowerShell on Windows
+Before running the application, make sure you have:
 
-The automated backend tests use MongoDB Memory Server and do not require a local MongoDB installation. Running the application itself does require a configured MongoDB connection.
+- Node.js 18 or newer.
+- npm.
+- Git.
+- A MongoDB local instance or MongoDB Atlas account.
+- PowerShell or another terminal.
 
-## Clone and install
+## Getting Started
 
-Replace `<repository-url>` with the repository URL supplied for your submission:
+### 1. Clone the Repository
 
 ```powershell
-git clone <repository-url>
-cd "codewise assignment"
+git clone https://github.com/SamarthKapdi/mern-task-manager.git
+
+cd mern-task-manager
 ```
 
-### Terminal 1 — backend
+### 2. Backend Setup
+
+Open the first terminal:
 
 ```powershell
 cd backend
+
 npm install
+
 Copy-Item .env.example .env
 ```
 
-Edit `backend/.env` with your own MongoDB connection details.
+Open `backend/.env` and configure your MongoDB connection.
 
-### Terminal 2 — frontend
-
-```powershell
-cd frontend
-npm install
-Copy-Item .env.example .env
-```
-
-The frontend `.env` is optional when using the default API URL. Change `VITE_API_BASE_URL` if the backend uses another host or port.
-
-## MongoDB Atlas setup
-
-1. Create or open a MongoDB Atlas project and cluster.
-2. In **Database Access**, create a database user with password authentication and `readWrite` access to the application database.
-3. In **Network Access**, allow the IP address from which the backend will connect.
-4. Select **Connect → Drivers**, copy the Node.js connection string, and replace its placeholders locally in `backend/.env`.
-5. Never commit `backend/.env` or paste a real connection string into README, source code, or screenshots.
-
-Example configuration using placeholders only:
+Example:
 
 ```env
+PORT=5001
+CLIENT_URL=http://127.0.0.1:5174
 MONGO_URI=mongodb+srv://<username>:<password>@<cluster-host>/task-manager?retryWrites=true&w=majority&authSource=admin
-PORT=5001
-CLIENT_URL=http://127.0.0.1:5174
 ```
 
-For local MongoDB, use:
+Replace the placeholders with your own MongoDB Atlas credentials.
 
-```env
-MONGO_URI=mongodb://127.0.0.1:27017/task-manager
-PORT=5001
-CLIENT_URL=http://127.0.0.1:5174
-```
+Never commit your actual `.env` file or expose database credentials.
 
-Frontend configuration:
-
-```env
-VITE_API_BASE_URL=http://127.0.0.1:5001/api
-```
-
-## Start the application
-
-In **Terminal 1**:
+Start the backend:
 
 ```powershell
-cd "D:\AllProjects\codewise assignment\backend"
 npm run dev
 ```
 
-Expected backend URL:
+The backend should be available at:
 
 ```text
 http://127.0.0.1:5001
 ```
 
-In **Terminal 2**:
+### 3. Frontend Setup
+
+Open a second terminal from the project root:
 
 ```powershell
-cd "D:\AllProjects\codewise assignment\frontend"
+cd frontend
+
+npm install
+
+Copy-Item .env.example .env
+```
+
+Frontend environment configuration:
+
+```env
+VITE_API_BASE_URL=http://127.0.0.1:5001/api
+```
+
+Start the frontend:
+
+```powershell
 npm run dev -- --host 127.0.0.1
 ```
 
-Open:
+Open the application:
 
 ```text
 http://127.0.0.1:5174/
 ```
 
-Vite may select another port if 5174 is occupied. If that happens, update `CLIENT_URL` and `VITE_API_BASE_URL` to match the displayed URLs.
+Note: If the frontend port is already occupied, Vite may select another available port. Configure `CLIENT_URL` and `VITE_API_BASE_URL` to match the actual frontend URL.
 
-## API documentation
+## MongoDB Atlas Configuration
 
-Responses use either `{ "success": true, "data": ... }` or `{ "success": false, "message": "..." }`. The `/tasks` routes and `/api/tasks` aliases are both supported.
+To use MongoDB Atlas:
 
-| Method | Endpoint | Purpose |
+1. Create a MongoDB Atlas account.
+2. Create a project and database deployment.
+3. Create a database user with password authentication.
+4. Assign the `readWrite` role to the application database.
+5. Add your current IP address under Network Access.
+6. Open Connect and select Drivers.
+7. Copy the Node.js connection string.
+8. Replace the placeholders in `backend/.env`.
+
+For local MongoDB, use:
+
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/task-manager
+```
+
+The application requires a valid MongoDB connection to run its live CRUD operations.
+
+## Task Data Model
+
+Each task contains:
+
+| Field | Type | Description |
 |---|---|---|
-| POST | `/tasks` or `/api/tasks` | Create a task |
-| GET | `/tasks` or `/api/tasks` | List tasks |
-| GET | `/tasks/:id` or `/api/tasks/:id` | Get one task |
-| PUT | `/tasks/:id` or `/api/tasks/:id` | Update a task |
-| DELETE | `/tasks/:id` or `/api/tasks/:id` | Delete a task |
+| title | String | Required task title |
+| description | String | Optional task description |
+| priority | Enum | low, medium, high |
+| status | Enum | todo, in_progress, done |
+| dueDate | Date | Optional deadline |
+| createdAt | Timestamp | Task creation time |
+
+## REST API Documentation
+
+The backend exposes the following endpoints:
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/tasks` | Create a task |
+| GET | `/tasks` | Retrieve all tasks |
+| GET | `/tasks/:id` | Retrieve a specific task |
+| PUT | `/tasks/:id` | Update a task |
+| DELETE | `/tasks/:id` | Delete a task |
 | GET | `/api/health` | Health check |
 
-Task fields:
+The `/api/tasks` and `/api/tasks/:id` aliases are also supported.
+
+### Example: Create a Task
+
+Endpoint:
+
+```http
+POST /tasks
+```
+
+Request body:
 
 ```json
 {
-  "title": "Prepare demo",
-  "description": "Review the dashboard",
+  "title": "Prepare project submission",
+  "description": "Complete documentation and testing",
   "priority": "high",
   "status": "todo",
   "dueDate": "2026-12-01"
 }
 ```
 
-Example PowerShell request:
+### Filtering Examples
 
-```powershell
-$task = Invoke-RestMethod `
-  -Method Post `
-  -Uri "http://127.0.0.1:5001/tasks" `
-  -ContentType "application/json" `
-  -Body '{"title":"Prepare demo","priority":"high","status":"todo"}'
-$task
-```
-
-Filtering and sorting:
-
-```text
+```http
 GET /tasks?status=todo
 GET /tasks?status=in_progress
 GET /tasks?status=done
+```
+
+### Sorting Examples
+
+```http
 GET /tasks?sortBy=dueDate&sortOrder=asc
+
 GET /tasks?sortBy=dueDate&sortOrder=desc
+
 GET /tasks?sortBy=priority&sortOrder=asc
+
 GET /tasks?sortBy=priority&sortOrder=desc
 ```
 
-Priority order is semantic: low, medium, high. Tasks without due dates are placed after dated tasks.
+Priority sorting follows the intended order:
+
+```text
+Low → Medium → High
+```
+
+Tasks without due dates are placed after dated tasks.
+
+### API Response Format
+
+Successful responses:
+
+```json
+{
+  "success": true,
+  "data": {}
+}
+```
+
+Error responses:
+
+```json
+{
+  "success": false,
+  "message": "A clear error message"
+}
+```
 
 ## Testing
 
-Run the backend integration suite without local MongoDB:
+The backend includes an integration test suite using Vitest, Supertest, and MongoDB Memory Server.
+
+To execute backend tests:
 
 ```powershell
-cd "D:\AllProjects\codewise assignment\backend"
+cd backend
+
+npm install
+
 npm test
 ```
 
-The suite covers both route aliases, CRUD, persistence across requests, validation, malformed/nonexistent IDs, filtering, date sorting, priority sorting, missing dates, and JSON errors.
+The automated tests cover:
 
-Build the frontend:
+- Task creation, retrieval, update, and deletion.
+- Required and optional field validation.
+- Invalid priority and status values.
+- Invalid dates.
+- Malformed and nonexistent task IDs.
+- Status filtering.
+- Due-date sorting.
+- Semantic priority sorting.
+- Missing due-date behavior.
+- API error responses.
+- Persistence across requests.
+
+The test suite uses an isolated in-memory MongoDB instance and does not require a locally running MongoDB server.
+
+### Frontend Production Build
 
 ```powershell
-cd "D:\AllProjects\codewise assignment\frontend"
+cd frontend
+
+npm install
+
 npm run build
 ```
 
-## Troubleshooting
+## Screenshots
 
-- **MongoDB connection refused:** start local MongoDB or replace `MONGO_URI` with your own Atlas URI and allow your IP in Atlas Network Access.
-- **Atlas authentication failed:** verify the database username, password, `readWrite` role, and `authSource=admin`.
-- **API unavailable in the browser:** confirm the backend is listening on port 5001 and `VITE_API_BASE_URL` ends with `/api`.
-- **CORS error:** set `CLIENT_URL` to the exact frontend origin, including its port.
-- **Port in use:** change `PORT`, then update `VITE_API_BASE_URL` and `CLIENT_URL`.
-- **Tests need no local database:** `npm test` starts an isolated MongoDB Memory Server automatically.
+Screenshots of the actual running application can be added here.
+
+Suggested screenshots:
+
+- Main dashboard.
+- Task creation form.
+- Centered edit task modal.
+- Search and filtering.
+- Responsive mobile dashboard.
+
+Store genuine screenshots in `docs/screenshots/` and reference them using relative Markdown image paths.
+
+## Error Handling
+
+The application handles:
+
+- Empty task titles.
+- Invalid priority and status values.
+- Invalid MongoDB ObjectIds.
+- Tasks that do not exist.
+- MongoDB connection errors.
+- Failed API requests.
+- Loading and empty states.
+
+A centralized error-handling middleware ensures consistent API error responses without exposing raw server stack traces.
+
+## Security & Configuration
+
+- Database credentials are stored in environment variables.
+- `.env` files are excluded through `.gitignore`.
+- `node_modules/` and build output are excluded from Git.
+- `.env.example` files provide placeholder configuration.
+- No real database credentials should be committed.
+
+## Future Improvements
+
+Possible extensions include:
+
+- JWT authentication and private user task lists.
+- Server-side pagination.
+- Advanced task reminders.
+- Calendar integration.
+- Task collaboration.
+- Automated frontend browser testing.
+
+## Repository
+
+GitHub: https://github.com/SamarthKapdi/mern-task-manager
+
+## License
+
+This project is available under the MIT License. See the `LICENSE` file for details.
