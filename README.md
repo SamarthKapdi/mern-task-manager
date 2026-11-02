@@ -26,18 +26,6 @@ The application has no mock task dataset: task cards, counts, filters, and sorti
 - Database: MongoDB local instance or MongoDB Atlas
 - Testing: Vitest, Supertest, MongoDB Memory Server
 
-## Screenshots
-
-No screenshots are committed because screenshots should represent a real configured run. To add genuine screenshots for a submission:
-
-1. Start the backend and frontend using the instructions below.
-2. Open `http://127.0.0.1:5174/`.
-3. Capture the dashboard and any useful filtered/editing state.
-4. Save images under `docs/screenshots/` and reference them here, for example:
-
-   ```markdown
-   ![Task dashboard](./docs/screenshots/dashboard.png)
-   ```
 
 ## Project structure
 
